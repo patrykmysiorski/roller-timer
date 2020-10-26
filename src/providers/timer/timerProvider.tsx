@@ -1,10 +1,11 @@
-import React, { createContext, ReactElement, useEffect, useState } from "react";
+import React, {createContext, ReactElement, useState} from "react";
 
 export const TimerContext = createContext({
-  time: 0,
-  isOn: false,
+  seconds: 0,
+  isActive: false,
   handleTimerStart: () => {},
   handleTimerStop: () => {},
+  handleTimerReset: () => {},
 });
 
 interface IProps {
@@ -12,39 +13,35 @@ interface IProps {
 }
 
 const TimerProvider: React.FC<IProps> = ({ children }) => {
-  const [milliseconds, setMilliseconds] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [id, setId] = useState();
 
-  const handleTimerStart = (): void => {
+  const handleTimerStart = () => {
     setIsActive(true);
-    // setMilliseconds(milliseconds);
-    // setInterval(() => setMilliseconds((milliseconds) => milliseconds + 1), 1);
+    const intervalId = setInterval(() => {
+      setSeconds((seconds) => seconds + 1);
+    }, 1000);
+    setId(intervalId);
   };
 
   const handleTimerStop = (): void => {
     setIsActive(false);
+    clearInterval(id);
   };
 
-  useEffect(() => {
-    let interval: any = undefined;
-    if (isActive) {
-      interval = setInterval(
-        () => setMilliseconds((milliseconds) => milliseconds + 1),
-        1
-      );
-    } else if (!isActive && milliseconds !== 0) {
-      // clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, milliseconds]);
+  const handleTimerReset = (): void => {
+    setSeconds(0);
+  }
 
   return (
     <TimerContext.Provider
       value={{
-        time: milliseconds,
-        isOn: isActive,
+        seconds,
+        isActive,
         handleTimerStart,
         handleTimerStop,
+        handleTimerReset
       }}
     >
       {children}
