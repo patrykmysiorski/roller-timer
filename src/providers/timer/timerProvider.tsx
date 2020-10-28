@@ -1,4 +1,7 @@
 import React, {createContext, ReactElement, useEffect, useState} from "react";
+import useSound from "use-sound";
+
+const soundSfx = require("../../assets/sound.mp3");
 
 export const TimerContext = createContext({
   seconds: 0,
@@ -19,6 +22,8 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
   const [isActive, setIsActive] = useState(false);
   const [id, setId] = useState();
 
+  const [play, { stop }] = useSound(soundSfx, { volume: 1 });
+
   const handleTimerStart = () => {
     setIsActive(true);
     const intervalId = setInterval(() => {
@@ -38,11 +43,12 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (seconds === 60) {
+    if (seconds === 3) {
       setSeconds(0);
       setMinutes((minutes) => minutes + 1);
+      play();
     }
-  }, [seconds]);
+  }, [play, seconds]);
 
   return (
     <TimerContext.Provider

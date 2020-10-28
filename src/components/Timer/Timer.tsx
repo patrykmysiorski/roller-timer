@@ -35,6 +35,7 @@ const Timer: React.FC = () => {
             START
           </Button>
         )}
+
         <Button variant="contained" color="default" onClick={handleReset}>
           RESET
         </Button>
