@@ -4,23 +4,20 @@ import { TimerContext } from "../../providers/timer/timerProvider";
 import { MainTimerContext } from "../../providers/mainTimer/mainTimerProvider";
 
 const ButtonsContainer = () => {
-  const {
-    isActive,
-    handleTimerStart,
-    handleTimerStop,
-    handleTimerReset,
-  } = useContext(TimerContext);
+  const { isActive, startTimer, stopTimer, resetTimer } = useContext(
+    TimerContext
+  );
   const { mainTimerStart, mainTimerStop } = useContext(MainTimerContext);
   const handleStart = () => {
-    handleTimerStart();
+    startTimer();
     mainTimerStart();
   };
   const handleStop = () => {
     mainTimerStop();
-    handleTimerStop();
+    stopTimer();
   };
   const handleReset = () => {
-    handleTimerReset();
+    resetTimer();
   };
   return (
     <div className="buttons-container">

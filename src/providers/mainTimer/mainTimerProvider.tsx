@@ -1,4 +1,12 @@
-import React, {createContext, ReactElement, useCallback, useEffect, useState,} from "react";
+import React, {
+  createContext,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import useSound from "use-sound";
+const finishSfx = require("../../assets/sounds/finish-workout.wav");
 
 export const MainTimerContext = createContext({
   mainSeconds: 0,
@@ -19,6 +27,8 @@ const MainTimerProvider: React.FC<IProps> = ({ children, series }) => {
   const [minutes, setMinutes] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [id, setId] = useState();
+
+  const [playFinishWorkout] = useSound(finishSfx, { volume: 0.25 });
 
   const setMainTimer = useCallback(() => {
     const secondsInWholeTraining = series * 130;
@@ -53,8 +63,16 @@ const MainTimerProvider: React.FC<IProps> = ({ children, series }) => {
     if (isActive && seconds === 0 && minutes === 0) {
       mainTimerStop();
       setMainTimer();
+      playFinishWorkout();
     }
-  }, [setMainTimer, mainTimerStop, seconds, isActive, minutes]);
+  }, [
+    setMainTimer,
+    mainTimerStop,
+    seconds,
+    isActive,
+    minutes,
+    playFinishWorkout,
+  ]);
 
   return (
     <MainTimerContext.Provider

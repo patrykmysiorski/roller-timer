@@ -9,16 +9,17 @@ import React, {
 import useSound from "use-sound";
 import { MainTimerContext } from "../mainTimer/mainTimerProvider";
 
-const soundSfx = require("../../assets/sound.mp3");
+const soundSfx = require("../../assets/sounds/sound.mp3");
+const clockTickingSfx = require("../../assets/sounds/clock-ticking.wav");
 
 export const TimerContext = createContext({
   seconds: 10,
   minutes: 0,
   isActive: false,
   isBrake: true,
-  handleTimerStart: () => {},
-  handleTimerStop: () => {},
-  handleTimerReset: () => {},
+  startTimer: () => {},
+  stopTimer: () => {},
+  resetTimer: () => {},
 });
 
 interface IProps {
@@ -32,7 +33,8 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
   const [isBrake, setIsBrake] = useState(true);
   const [id, setId] = useState();
 
-  const [play] = useSound(soundSfx, { volume: 1 });
+  const [playFinish] = useSound(soundSfx, { volume: 1 });
+  const [playTicking] = useSound(clockTickingSfx, { volume: 1 });
 
   const { mainSeconds, mainMinutes } = useContext(MainTimerContext);
 
@@ -49,13 +51,13 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
     clearInterval(id);
   }, [id]);
 
-  const handleTimerReset = useCallback((): void => {
+  const resetTimer = useCallback((): void => {
     setIsBrake(false);
     setSeconds(0);
     setMinutes(2);
   }, []);
 
-  const handleTimerSetToBrake = (): void => {
+  const setTimerBrake = (): void => {
     setSeconds(10);
     setMinutes(0);
     setIsBrake(true);
@@ -64,29 +66,33 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
   useEffect(() => {
     if (mainSeconds === 0 && mainMinutes === 0) {
       stopTimer();
-      handleTimerSetToBrake();
+      setTimerBrake();
     }
     if (isActive && seconds === -1 && minutes > 0) {
       setMinutes((minutes) => minutes - 1);
       setSeconds(59);
     }
     if (isActive && !isBrake && seconds === -1 && minutes === 0) {
-      handleTimerSetToBrake();
-      play();
+      setTimerBrake();
+      playFinish();
     }
     if (isBrake && seconds === 0) {
-      handleTimerReset();
+      resetTimer();
+    }
+    if (isBrake && isActive) {
+      playTicking();
     }
   }, [
-    handleTimerReset,
+    resetTimer,
     stopTimer,
-    play,
+    playFinish,
     seconds,
     isActive,
     minutes,
     isBrake,
     mainSeconds,
     mainMinutes,
+    playTicking,
   ]);
 
   return (
@@ -96,9 +102,9 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
         minutes,
         isActive,
         isBrake,
-        handleTimerStart: startTimer,
-        handleTimerStop: stopTimer,
-        handleTimerReset,
+        startTimer,
+        stopTimer,
+        resetTimer,
       }}
     >
       {children}
