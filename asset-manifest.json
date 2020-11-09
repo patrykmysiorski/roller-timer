@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/roller-timer/static/css/main.7bbf699c.chunk.css",
+    "main.js": "/roller-timer/static/js/main.4f825e16.chunk.js",
+    "main.js.map": "/roller-timer/static/js/main.4f825e16.chunk.js.map",
+    "runtime-main.js": "/roller-timer/static/js/runtime-main.efcc3380.js",
+    "runtime-main.js.map": "/roller-timer/static/js/runtime-main.efcc3380.js.map",
+    "static/js/2.7d195ea0.chunk.js": "/roller-timer/static/js/2.7d195ea0.chunk.js",
+    "static/js/2.7d195ea0.chunk.js.map": "/roller-timer/static/js/2.7d195ea0.chunk.js.map",
+    "static/js/3.258807d9.chunk.js": "/roller-timer/static/js/3.258807d9.chunk.js",
+    "static/js/3.258807d9.chunk.js.map": "/roller-timer/static/js/3.258807d9.chunk.js.map",
+    "index.html": "/roller-timer/index.html",
+    "precache-manifest.3400d689f5286cd8d483c3533cf6852f.js": "/roller-timer/precache-manifest.3400d689f5286cd8d483c3533cf6852f.js",
+    "service-worker.js": "/roller-timer/service-worker.js",
+    "static/css/main.7bbf699c.chunk.css.map": "/roller-timer/static/css/main.7bbf699c.chunk.css.map",
+    "static/js/2.7d195ea0.chunk.js.LICENSE.txt": "/roller-timer/static/js/2.7d195ea0.chunk.js.LICENSE.txt",
+    "static/js/3.258807d9.chunk.js.LICENSE.txt": "/roller-timer/static/js/3.258807d9.chunk.js.LICENSE.txt",
+    "static/media/sound.mp3": "/roller-timer/static/media/sound.c5a8dcbd.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.efcc3380.js",
+    "static/js/2.7d195ea0.chunk.js",
+    "static/css/main.7bbf699c.chunk.css",
+    "static/js/main.4f825e16.chunk.js"
+  ]
+}
