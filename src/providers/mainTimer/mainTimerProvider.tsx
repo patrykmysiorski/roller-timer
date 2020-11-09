@@ -36,7 +36,7 @@ const MainTimerProvider: React.FC<IProps> = ({ children, series }) => {
     setIsActive(true);
     const intervalId = setInterval(() => {
       setSeconds((seconds) => seconds - 1);
-    }, 100);
+    }, 1000);
     setId(intervalId);
   };
 

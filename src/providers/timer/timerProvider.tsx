@@ -32,17 +32,15 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
   const [isBrake, setIsBrake] = useState(true);
   const [id, setId] = useState();
 
-  const [play, { stop }] = useSound(soundSfx, { volume: 1 });
+  const [play] = useSound(soundSfx, { volume: 1 });
 
-  const { mainSeconds, mainMinutes, setMainTimer } = useContext(
-    MainTimerContext
-  );
+  const { mainSeconds, mainMinutes } = useContext(MainTimerContext);
 
   const startTimer = () => {
     setIsActive(true);
     const intervalId = setInterval(() => {
       setSeconds((seconds) => seconds - 1);
-    }, 100);
+    }, 1000);
     setId(intervalId);
   };
 
@@ -55,7 +53,6 @@ const TimerProvider: React.FC<IProps> = ({ children }) => {
     setIsBrake(false);
     setSeconds(0);
     setMinutes(2);
-    // setMainTimer();
   }, []);
 
   const handleTimerSetToBrake = (): void => {
